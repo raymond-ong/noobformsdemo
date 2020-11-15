@@ -1,4 +1,5 @@
 {
+  "homepage": "raymond-ong.github.io/noobformsdemo",
   "name": "aprwebapp",
   "version": "0.1.0",
   "private": true,
@@ -41,6 +42,8 @@
     "why-did-you-update": "^0.1.1"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -60,5 +63,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "gh-pages": "^3.1.0"
   }
 }
