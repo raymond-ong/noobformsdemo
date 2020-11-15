@@ -30,7 +30,7 @@ This is a quick POC project for using CSS Grid to implement a React-based Dashbo
 
 # Demo App
 URL: (https://raymond-ong.github.io/noobformsdemo/)
-Caveats:
+**Caveats:
 * This demo app was modified to use the browser's local storage to store the configured page layouts, hierarchies and images (for the ImageMap Control).
 * In the original project, the controls connect to a REST API Server to get its data
 * PDF Generation is not supported in this demo app because PDF Generation is handled in the backend server (using Puppeteer). This demo app is purely front end only.
