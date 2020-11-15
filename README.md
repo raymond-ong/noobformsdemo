@@ -29,7 +29,7 @@ This is a quick POC project for using CSS Grid to implement a React-based Dashbo
 * Sample Report here: (https://github.com/raymond-ong/noobformsdemo/blob/master/public/SampleReport.pdf)
 
 # Demo App
-URL: (https://raymond-ong.github.io/noobformsdemo/)
+URL: https://raymond-ong.github.io/noobformsdemo/
 **Caveats:
 * This demo app was modified to use the browser's local storage to store the configured page layouts, hierarchies and images (for the ImageMap Control).
 * In the original project, the controls connect to a REST API Server to get its data
