@@ -78,14 +78,14 @@ const panes = [
       //     </Tab.Pane>
       //   ),
       // },          
-      {
-        menuItem: 'affiliate',
-        pane: (
-          <Tab.Pane key='affiliate' style={{height: '100%', width: '100%', padding: '0px'}}>
-            <ExternalContainer/>
-          </Tab.Pane>
-        ),
-      },
+      // {
+      //   menuItem: 'affiliate',
+      //   pane: (
+      //     <Tab.Pane key='affiliate' style={{height: '100%', width: '100%', padding: '0px'}}>
+      //       <ExternalContainer/>
+      //     </Tab.Pane>
+      //   ),
+      // },
       // {
       //   menuItem: 'dashboardDesigner',
       //   pane: (

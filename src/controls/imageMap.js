@@ -3,6 +3,7 @@ import ImageMapper from './imageMapperLib';
 import './imageMap.css';
 import noobControlHoc from '../hoc/noobControlsHoc';
 import {getAprBaseUrl} from '../api/masterData';
+import {getImageFromLocal} from '../helper/localStorageHelper';
 
 // Should use different names if there are more than 1 instance of maps in the web page
 // Otherwise the mouse pointer will have conflicts
@@ -10,9 +11,9 @@ import {getAprBaseUrl} from '../api/masterData';
 const MAP ={
     name: "myMap",
     areas: [
-        {name: "Room 1", shape: "circle", coords: [170, 20, 15 ], preFillColor: "blue"},
-        {name: "Room 2", shape: "circle", coords: [400, 120, 15 ], preFillColor: "#ffcf0c"},
-        {name: "Room 3", shape: "circle", coords: [70, 100, 15 ], preFillColor: "green"},
+        {name: "Room 1", shape: "circle", coords: [170, 50, 15 ], preFillColor: "red"},
+        {name: "Room 2", shape: "circle", coords: [300, 120, 15 ], preFillColor: "#ffcf0c"},
+        {name: "Room 3", shape: "circle", coords: [70, 100, 15 ], preFillColor: "lightgreen"},
     ]
 };
 
@@ -29,7 +30,7 @@ const MAP2 ={
 };
 
 //const DEFAULT_IMG = 'layout.gif'; // This image can be accessed from http://localhost:3000/layout.gif, and deployed inside the public folder of this React App
-const DEFAULT_IMG = 'https://github.com/raymond-ong/noobformsdemo/blob/master/public/layout.gif?raw=true'
+const DEFAULT_IMG = 'https://github.com/raymond-ong/noobformsdemo/blob/master/public/DefaultMap.png?raw=true';
 
 class ImageMap extends React.Component {
     constructor(props) {
@@ -109,8 +110,11 @@ class ImageMap extends React.Component {
     }
 
     getImageUrl() {
+        // return this.props.data && this.props.data.imageProps && this.props.data.imageProps.image ? 
+        //             `${getAprBaseUrl()}/files/${this.props.data.imageProps.image}` 
+        //             : DEFAULT_IMG;
         return this.props.data && this.props.data.imageProps && this.props.data.imageProps.image ? 
-                    `${getAprBaseUrl()}/files/${this.props.data.imageProps.image}` 
+                    `${getImageFromLocal(this.props.data.imageProps.image)}` 
                     : DEFAULT_IMG;
     }
 

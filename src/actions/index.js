@@ -1,7 +1,7 @@
 import masterData, {aprFrontEndApi, isFrontEndApiReachable} from '../api/masterData';
 import _ from 'lodash';
 import {sanitizeTreeData} from '../helper/treefilter';
-import {localSaveLayout, localFetchLayouts, localFetchHierarchies, localSaveHierarchy} from '../helper/localStorageHelper';
+import {localSaveLayout, localFetchLayouts, localFetchHierarchies, localSaveHierarchy, getImageListFromLocal, getImageFromLocal} from '../helper/localStorageHelper';
 
 export const CLICK_MENU = "CLICK_MENU";
 export const DRAG_TOOLITEM_START = "DRAG_TOOLITEM_START";
@@ -182,7 +182,13 @@ export const fetchHierarchyKpi = () => async dispatch => {
 
 export const fetchImages = () => async dispatch => { 
   console.log('[action] fetchImages');
-  const response = await aprFrontEndApi.get('getfilelist')
+  let response;
+  if (!isFrontEndApiReachable()) {
+    response = {data: getImageListFromLocal()};
+  }
+  else {
+    response = await aprFrontEndApi.get('getfilelist')
+  }
 
   dispatch({
     type: FETCH_IMAGES,

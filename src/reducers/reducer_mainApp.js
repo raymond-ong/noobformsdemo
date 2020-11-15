@@ -35,11 +35,11 @@ const tabIndexMapping = {
   hierarchyDesigner: 5,
   //dataSources: 6,
 
-  affiliate: 6,
+  //affiliate: 6,
   // dashboardDesigner: 7,
   // dataDesigner: 8,
   // trialPage: 9,
-  settings: 7
+  settings: 6
 }
 
 const addOrUpdateLayout = (stateLayouts, newLayout) => {

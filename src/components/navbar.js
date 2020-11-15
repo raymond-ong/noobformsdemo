@@ -119,7 +119,7 @@ const navBarMenuItems = [
     { name: 'formsDesigner', title: 'Page Designer',  icon: 'edit',   alignment: '' },
     { name: 'hierarchyDesigner', title: 'Hierarchy Designer',  icon: 'list',   alignment: '' },
     // { name: 'dataSources', title: 'Data Sources',  icon: 'database',   alignment: '' },
-    { name: 'affiliate', title: 'Affiliate Input',  icon: 'users',   alignment: '' },
+    //{ name: 'affiliate', title: 'Affiliate Input',  icon: 'users',   alignment: '' },
 
     // { name: 'dashboardDesigner', title: '(delete)',  icon: 'chart area',   alignment: '' },    
     // { name: 'dataDesigner', title: '(delete)',  icon: 'cube',   alignment: '' },

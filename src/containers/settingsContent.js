@@ -5,6 +5,7 @@ import Form, {Dropdown as FormDropDown} from '../form/Form';
 import './settingsContent.css';
 import ShowMessage, {NotifType} from '../helper/notification';
 import {deleteImage, fetchImages} from '../actions';
+import {createOrReplaceImage, deleteImage as deleteLocalImage} from '../helper/localStorageHelper';
 
 
 
@@ -28,9 +29,23 @@ const SettingsContent = () => {
     const dispatch = useDispatch();
 
     const handleFormSubmit = (args) => {
-        // Actually, this function is called prior to successful submission (todo: fix the timing)
-        ShowMessage("Image uploaded!", NotifType.success, "Please refresh the browser to see it in the image lists!");
-        // dispatch(fetchImages()); // does not work because this function is called prior to 
+        if (!args || !args.target || !args.target.length > 0 || !args.target[0].files || !args.target[0].files.length > 0 ) {
+            ShowMessage("Image uploaded!", NotifType.danger, "Cannot open file!");
+            return;
+        }
+
+        debugger
+
+
+        var reader = new FileReader();
+        let file = args.target[0].files[0]
+        reader.readAsDataURL(file);
+        reader.onload = function () {
+            //console.log(reader.result);
+            // reader.result is in base64 format
+            createOrReplaceImage(file.name, reader.result);
+            ShowMessage("Image uploaded!", NotifType.success, "Please refresh the browser to see it in the image lists!");
+          };        
     }
 
     const onSubmitDelete = (formData) => {
@@ -39,22 +54,23 @@ const SettingsContent = () => {
         }
     
         let fileName = formData.settingsImageDropdown;
-        dispatch(deleteImage(fileName)).then( () => {            
-            console.log('deleted image!');
-            ShowMessage("Deleted Image!");
-            dispatch(fetchImages());
-        });
+        // dispatch(deleteImage(fileName)).then( () => {            
+        //     console.log('deleted image!');
+        //     ShowMessage("Deleted Image!");
+        //     dispatch(fetchImages());
+        // });
+        deleteLocalImage(fileName);
+        ShowMessage("Deleted Image!");
     }
     
-
     return <div className="settingsContentContainer">
         <iframe name="hiddenFrame" className="hiddenFrame"></iframe>
         <Segment>
             <div className="segmentTitle">Upload Image</div>
-            <form method="post" 
+            <form 
                 className="uploadImageForm"
                 encType="multipart/form-data" 
-                action="http://localhost:5000/fileupload" 
+                // action="http://localhost:5000/fileupload"                 
                 target="hiddenFrame"
                 onSubmit={handleFormSubmit}>
                 <input className="ui button fileInputImageUpload" type="file" name="uploadedFile" accept="image/*"/>

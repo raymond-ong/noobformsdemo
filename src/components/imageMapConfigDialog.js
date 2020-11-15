@@ -7,6 +7,7 @@ import ImageMapper from '../controls/imageMapperLib';
 import {convertToDropdownOptions} from '../containers/settingsContent';
 import {getAprBaseUrl} from '../api/masterData';
 import {applyImageMapProps} from '../actions';
+import {getImageFromLocal} from '../helper/localStorageHelper';
 
 const KEY_NAME = "dropdownImage";
 
@@ -198,6 +199,7 @@ const ImageMapConfigDialog = ({showOpenForm, onCloseOpenConfigDialog, selectedCo
                 inputObjId={inputObjId}>
                 <div className="formBodyImgMapConfig">
                     <h4>Configure ImageMap Control</h4>
+                    <div className="ui message green">Tip: Upload Image from the Settings Page</div>
 
                     <FormDropdown key={'dropdownImage'}
                         name={'dropdownImage'}
@@ -230,7 +232,9 @@ const ImageMapConfigDialog = ({showOpenForm, onCloseOpenConfigDialog, selectedCo
             </Form>
             <div className="imageContainer">
                 {!!myState && !!myState.dropdownImage &&
-                <ImageMapper src={`${getAprBaseUrl()}/files/${myState.dropdownImage}`}
+                <ImageMapper 
+                            //src={`${getAprBaseUrl()}/files/${myState.dropdownImage}`}
+                            src={getImageFromLocal(myState.dropdownImage)}
                             onImageMouseMove={handleMouseMove}
                             onImageClick={handleMouseClick}
                             map={map}
