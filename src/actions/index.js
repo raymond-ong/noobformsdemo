@@ -1,6 +1,7 @@
-import masterData, {aprFrontEndApi} from '../api/masterData';
+import masterData, {aprFrontEndApi, isFrontEndApiReachable} from '../api/masterData';
 import _ from 'lodash';
 import {sanitizeTreeData} from '../helper/treefilter';
+import {localSaveLayout, localFetchLayouts, localFetchHierarchies, localSaveHierarchy} from '../helper/localStorageHelper';
 
 export const CLICK_MENU = "CLICK_MENU";
 export const DRAG_TOOLITEM_START = "DRAG_TOOLITEM_START";
@@ -124,20 +125,35 @@ export const fetchHierarchyConso = () => async dispatch => {
 
 export const fetchSavedLayouts = () => async dispatch => { 
   console.log('[action] fetchSavedLayouts');
-  //const response = await masterData.get('layout')
-  const response = await aprFrontEndApi.get('fetchSavedLayouts')
+  let response;
+  if (!isFrontEndApiReachable()) {
+    response = {data: localFetchLayouts()}
+  }
+  else {
+    //const response = await masterData.get('layout')
+    response = await aprFrontEndApi.get('fetchSavedLayouts')
+  }
 
   dispatch({
     type: FETCH_SAVEDLAYOUTS,
     payload: response
-  });
+  });    
+
 }
 
 export const fetchHierarchyViews = () => async dispatch => { 
   console.log('[action] fetchHierarchyViews');
-  //const response = await masterData.get('hierarchyviews')
-  const response = await aprFrontEndApi.get('fetchHierarchyViews')
-
+  let response;
+  if (!isFrontEndApiReachable()) {
+    response = {
+      data: localFetchHierarchies()
+    };
+  }
+  else {
+    //const response = await masterData.get('hierarchyviews')  
+    response = await aprFrontEndApi.get('fetchHierarchyViews')
+  }
+  
   dispatch({
     type: FETCH_HIERARCHYVIEWS,
     payload: response
@@ -219,25 +235,31 @@ export const openLayout = (controls, layoutData) => {
 export const saveLayout = (layout, name, layoutData) => async dispatch => { 
   console.log('[action] saveLayout');
 
-  let response = null;
-  try {
-    response = await aprFrontEndApi.post('createupdatelayout', {
-      name,
-      layoutJson: JSON.stringify(layout),
-      numRows: layoutData.rows,
-      numCols: layoutData.columns,
-      pageFilterFields: JSON.stringify(layoutData.pageFilterFields),
-      pageApiData: JSON.stringify(layoutData.pageApiData),
-    });  
+  let response;
+  if (!isFrontEndApiReachable()) {
+    response = {data: localSaveLayout(layout, name, layoutData)};
   }
-  catch(err) {
-    return err;
+  else {
+    try {
+      response = await aprFrontEndApi.post('createupdatelayout', {
+        name,
+        layoutJson: JSON.stringify(layout),
+        numRows: layoutData.rows,
+        numCols: layoutData.columns,
+        pageFilterFields: JSON.stringify(layoutData.pageFilterFields),
+        pageApiData: JSON.stringify(layoutData.pageApiData),
+      });
+    }
+    catch(err) {
+      return err;
+    }  
   }
 
   dispatch({
     type: SAVE_DESIGNER_LAYOUT,
     payload: {layout, name, response}
-  });
+  });  
+
 
   return true;
 }
@@ -278,15 +300,23 @@ export const saveHierarchyView = (hierarchyData, userSettings) => async dispatch
 
   let response = null;  
   let formattedHierarchyData = sanitizeTreeData(hierarchyData);
-  try {
-    //response = await masterData.post('hierarchyviews', {
-    response = await aprFrontEndApi.post('saveHierarchyView', {
-      hierarchyJson: JSON.stringify(formattedHierarchyData),
-      nodeSettingsJson: JSON.stringify(userSettings),
-    });  
+  let hierarchyJson = JSON.stringify(formattedHierarchyData);
+  let nodeSettingsJson = JSON.stringify(userSettings);
+
+  if(!isFrontEndApiReachable()) {
+    localSaveHierarchy(hierarchyJson, nodeSettingsJson)
   }
-  catch(err) {
-    return err;
+  else {
+    try {
+      //response = await masterData.post('hierarchyviews', {
+      response = await aprFrontEndApi.post('saveHierarchyView', {
+        hierarchyJson,
+        nodeSettingsJson,
+      });  
+    }
+    catch(err) {
+      return err;
+    }  
   }
 
   dispatch({

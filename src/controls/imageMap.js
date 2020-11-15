@@ -28,7 +28,8 @@ const MAP2 ={
     ]
 };
 
-const DEFAULT_IMG = 'layout.gif'; // This image can be accessed from http://localhost:3000/layout.gif, and deployed inside the public folder of this React App
+//const DEFAULT_IMG = 'layout.gif'; // This image can be accessed from http://localhost:3000/layout.gif, and deployed inside the public folder of this React App
+const DEFAULT_IMG = 'https://github.com/raymond-ong/noobformsdemo/blob/master/public/layout.gif?raw=true'
 
 class ImageMap extends React.Component {
     constructor(props) {

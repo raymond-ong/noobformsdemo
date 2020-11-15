@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './reportForm.css';
 import ReportControl from './reportControl';
+import NoobControl from './noobControl';
 import {fetchPageData} from '../api/pageApiManager';
 import { Dimmer, Loader, Segment } from 'semantic-ui-react';
 import {filterExecSummaryByUuid} from '../api/ExecutiveSummaryLogic';
@@ -243,7 +244,7 @@ const ReportForm = (props) => {
     }
     
     console.log('render ReportForm...', layoutData);
-    debugger
+    //debugger
 
 
     // minus 50 for the left and right margin of PDF

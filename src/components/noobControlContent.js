@@ -24,6 +24,7 @@ import PageBreak from '../controls/pagebreak';
 import ImageMap from '../controls/imageMap';
 import Datepicker from '../controls/datepicker';
 import ExternalContainer, {ExternalContainerBase} from '../containers/externalContainer';
+import {isFrontEndApiReachable} from '../api/masterData';
 
 // Separate the content-part into a standalone component from the control wrapper
 // Reason: this will be the only part that will be resized or moved while dragging (moving or resizing)
@@ -39,7 +40,7 @@ export const getContentDiv = (controlData, mode) => {
     // Also this should be floated. We don't want to resize or move the parent
     let content = null;
     let isReporting = document.URL.toLowerCase().includes("reporting");
-    let designMode = mode !== 'dashboard';
+    let designMode = mode !== 'dashboard' || !isFrontEndApiReachable();
     switch(controlData.ctrlType) {
         case 'section':
             content = <Section {...controlData}></Section>
@@ -74,7 +75,7 @@ export const getContentDiv = (controlData, mode) => {
                 //content = <PieForReport {...controlData}/>
                 content = <PieForReport {...controlData}/>
             }
-            else if (mode === 'dashboard') {
+            else if (mode === 'dashboard' && isFrontEndApiReachable()) {
                 // Forgot why we need to use the Base. I think there were conflicts with the mouseDown.
                 content = <PieResponsiveDataBase {...controlData}/>
             }

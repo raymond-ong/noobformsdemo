@@ -34,3 +34,8 @@ export const getAprBaseUrl = () => {
 export const aprFrontEndApi = axios.create({
     baseURL: getAprBaseUrl()
 });
+
+
+// Temp: for the demo page
+// Todo: should check first if the URL is valid. Otherwise use local storage
+export const isFrontEndApiReachable = () => false;
