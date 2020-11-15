@@ -1,0 +1,219 @@
+<!DocType HTML>
+<html>
+    <head>
+        <Title>ISAE Cloud - Executive Summary App</Title>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link rel="stylesheet" href="executivesummary.css">
+        
+    </head>
+
+    <body>
+        <nav id="myNavbar" class="navbar navbar-dark bg-dark fixed">  
+            <div class="navbar-header" > 
+                <a class="navbar-brand">ISAE Cloud</a>
+            </div>
+            <div>
+                <ul class="nav navbar-nav">
+                    <li><a class="nav-link">Executive Summary</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <section>
+            <div class="container">
+                <h3>Affiliate interface to input Executive Summary</h3>
+                <form id="ExecSummary">
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                        <label for="custName">Customer Name : </label>
+                            <select id="custName" class="form-control"  onchange=plantName() name="custName" >
+                                <option value="exception">Choose a customer</option>
+                                <option value="customer_1">Customer 123</option>
+                                <option value="customer_2">Customer XYZ</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-6">
+                        <label for="plantName">Customer Plant : </label>
+                            <select class="form-control" id="plantName" onchange=prmName() name="plantName">
+                                <option value="customer_1">Choose a plant</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-6">
+                        <label for="prmName">PRM Name : </label>
+                            <select class="form-control" id="prmName" name="prmName">
+                                <option value="customer_1">Choose a PRM</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <label for="aprStart">APR Start-Date : </label>
+                            <input type="month" id="aprStart" name="aprStart"  min="2020-02" value="2020-02">
+                        </div>
+                        <div class="form-group col-md-4">
+                            
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="aprEnd">APR End-Date : </label>
+                            <input type="month" id="aprEnd" name="aprEnd" min="2020-02" value="2020-04">
+                        </div>
+                    </div>
+                    
+                    
+                    <h2>Executive Summary Input</h2>
+                    <div class="row form-group">  
+                        <div class="col-md-1 bd-highlight">
+                            <label for="execMessage">Summary for Manager: </label>
+                        </div>
+                        <div class="col-md-11">    
+                            <textarea id='execMessage' name='execMessage' class="form-control" rows="5"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="row form-group m-5px"> 
+                        <div class="col-md-6 bd-highlight">
+                            <h3> Good Points </h3>
+                            <!--<button class="btn btn-outline-primary"> <i class="fa fa-plus" aria-hidden="true"></i> Add Another Good Point </button><br> -->
+                            <label for='execGPTopic' name='execGPMessage'>Topic: </label>
+                            <input id='execGPTopic' class="form-control">
+                            <label for='execGPContent'>Content: </label>
+                            <textarea id='execGPContent' name='execGPContent' class="form-control" rows="5"></textarea>
+                           <!-- <button class="btn btn-success"> <i class="fas fa-save"></i> Save Good Point </button><br> -->
+                        </div>
+                        <div class="col-md-6">
+                            <h3> Improvements (Focus Areas) </h3>    
+                           <!-- <button class="btn btn-outline-primary"> <i class="fa fa-plus" aria-hidden="true"></i> Add Another Improvements </button><br> -->
+                            <label for='execIMTopic'>Topic: </label>
+                            <input id='execIMTopic' name='execMessage' class="form-control">
+                            <label for="execIMContent">Content: </label>
+                            <textarea id='execIMContent' name='execIMContent' class="form-control" rows="5"></textarea>
+                            <!--<button class="btn btn-success"> <i class="fas fa-save"></i> Save Good Point </button><br> -->
+                        </div>
+                    </div>
+
+                    <div class="row form-group">  
+                        <div class="col-md-1 bd-highlight">
+                        <label for="execSuggestion">Add Suggestion: </label>
+                        </div>
+                        <div class="col-md-11">    
+                            <textarea id="execSuggestion" name="execSuggestion" class="form-control" rows="5"></textarea>
+                        </div>
+                    </div>
+                <button class=" text-center btn btn-primary" onClick=apiCall()> Submit POST </button>
+                   
+                    </div>
+                </form>
+            </div>
+        </section>
+
+
+        <section>
+            <h3> Retrieve all data from ExecSummary Database via GET API</h3>
+            <button class="btn btn-info" onClick=reqListener()> Retrieve Data from the DynamoDBgit  Database</button>
+            <div id="getDBval"></div>  
+        </section>
+        <script>
+            document.getElementById('custName').onchange = function plantName() {
+                $('#plantName').empty();
+                let customerName = custName.value;         
+                let customerPlantName = initalizePlant(customerName);              
+                let plantName = document.getElementById('plantName');
+                for (let i=0; i<customerPlantName.length; i++) {    
+                    let optValue = document.createElement("option");
+                    optValue.text = customerPlantName[i];
+                    plantName.options.add(optValue, i);
+                };
+                function initalizePlant(customerName) {
+                    if (customerName == 'customer_1') {
+                        return ['Plant 1', 'Plant 2', 'Plant 3']
+                    } else if (customerName == 'customer_2') {
+                        return ['Plant X', 'Plant Y', 'Plant Z']
+                    } else {
+                        return ['Choose Plant']
+                    };
+                };
+                $('#plantName').change();
+            };
+            
+            
+
+            document.getElementById('plantName').onchange = function prmName() {
+                $('#prmName').empty();
+                let curPlantName = plantName.value;         
+                let customerPrmName = initalizePrm(curPlantName);              
+                let prmName = document.getElementById('prmName');
+                for (let i=0; i<customerPrmName.length; i++) {    
+                    let optValue = document.createElement("option");
+                    optValue.text = customerPrmName[i];
+                    prmName.options.add(optValue, i);
+                }
+                function initalizePrm(curPlantName) {
+                    debugger
+                    if (curPlantName == 'Plant 1') {
+                        return ['PRM 1', 'PRM 2', 'PRM 3']
+                    } else if (curPlantName == 'Plant 2') {
+                        return ['PRM 4', 'PRM 5'] 
+                    } else if (curPlantName == 'Plant X') {
+                        return ['PRM X', 'PRM Y', 'PRM Z']
+                    } else if (curPlantName == 'Plant Z') {
+                        return ['PRM A', 'PRM B']
+                    } else {
+                        return ['No prm for this plant']
+                    };
+                };
+            };
+        </script>
+
+        <script>
+          function apiCall() {
+              const api='https://0kwuefbg37.execute-api.ap-south-1.amazonaws.com/Initial/execsummary';
+              const method='POST';
+              let payload = {
+                custName: $('#custName').val(),
+                plantName: $('#plantName').val(),
+                prmName: $('#prmName').val(),
+                aprStart: $('#aprStart').val(),
+                aprEnd: $('#aprEnd').val(),
+                execMessage: $('#execMessage').val(),
+                execGPTopic: $('#execGPTopic').val(),
+                execGPContent: $('#execGPContent').val(),
+                execIMTopic: $('#execIMTopic').val(),
+                execIMContent: $('#execIMContent').val(),
+                execSuggestion: $('#execSuggestion').val(),
+              };
+
+              
+                $.ajax({
+                    type: method,
+                    url: api,
+                    data: JSON.stringify(payload),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                });
+                console.log (payload);
+                alert('Executive Summary Submitted Successfully')
+          }
+
+          function onReceiveReponse() {
+            let getOutput = document.getElementById('getDBval');
+            getOutput.innerHTML=this.responseText;
+          }
+
+          function reqListener () {
+            console.log(this.responseText);
+            var oReq = new XMLHttpRequest();
+            oReq.addEventListener("load", onReceiveReponse);
+            oReq.open("GET", "https://0kwuefbg37.execute-api.ap-south-1.amazonaws.com/Initial/execsummary");
+            oReq.send();            
+            }
+
+        </script>
+
+
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="  crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper-utils.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    </body>
+</html>
