@@ -1,0 +1,21 @@
+/* Outline is better than border as it is drawn outside the control */
+.ctrl-selected {
+    outline: 3px solid #8888FF;
+    /* outline: 3px solid #55AA55; */
+    /* outline: 3px solid #EE5555; */
+    transition: outline 0.2s;
+}
+
+.controlLabel {
+    font-weight: 800;
+    background: rgba(220, 220, 220, 0.5);
+}
+
+.baseControl {
+    width: 100%
+}
+
+.wrapper {
+    width: 100%;
+    background-color: white;
+}

@@ -1,0 +1,15 @@
+/* override the pinkish placeholder from react-grid-layout */
+.react-grid-item.react-grid-placeholder {
+    background-color: lime;
+  }
+
+.Aligner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+  }
+
+  .Aligner-item {
+    
+  }

@@ -1,0 +1,16 @@
+.downloadCenterContent {
+
+}
+
+.downloadCenterFieldContainer {
+    display: grid;
+    grid-template-columns: minmax(100px, min-content) 1fr minmax(100px, min-content) 1fr minmax(100px, min-content) 1fr ;
+    gap: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.stepTitle {
+    font-weight: 600;
+    font-size: px;
+}

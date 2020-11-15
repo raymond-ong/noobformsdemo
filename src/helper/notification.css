@@ -1,0 +1,17 @@
+.myToast {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: larger;
+}
+
+.myToast-info {
+    /* background: rgba(0,0,0,0.9); */
+    background-color: #61abf1;
+    color:white;
+    border-radius: 5px;
+}
+
+/* Hide the annoying timer bar */
+/* .notification-item .timer {
+    visibility: hidden;
+    margin-top: 0px !important;
+} */

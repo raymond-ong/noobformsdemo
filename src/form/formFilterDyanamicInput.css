@@ -1,0 +1,25 @@
+.dynamicFilterRow {
+    display: grid;
+    grid-template-columns: 1fr 1fr min-content;
+    gap: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.dynamicFilterRowTextbox {
+    /* padding-top: 0px !important;
+    padding-bottom: 0px !important; */
+    /* line-height: 1em !important;
+    font-size: 1em !important; */
+}
+
+/* override semantic ui class */
+.dynamicFilterRow .field {
+    margin: 0px !important;
+}
+
+.dynamicFilterRow .rc-tree-select-selection {
+    /* border: 1px solid red;
+    height: 32px;
+    padding: 0px; */
+}

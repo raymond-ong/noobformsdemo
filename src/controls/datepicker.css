@@ -1,0 +1,31 @@
+.datepickerGrid {
+    /* display: grid;
+    grid-template-columns: max-content 1fr max-content 1fr max-content 1fr; */
+}
+
+.dateLabel {
+    font-weight: bold;
+    padding-right: 10px;
+    height: 100%;
+    /* align to the center vertically */
+    display: flex; 
+    align-items: center; 
+    /* justify-content: center; */
+}
+
+.react-datepicker-wrapper {
+    width: 100%;
+}
+.react-datepicker__input-container input {
+    width: 100%;
+    border-radius: 2px;
+    padding-top: 5px;
+}
+
+.datepickerWrapper {
+    width: 100%;
+}
+
+/* .datepickerWrapperEnd {
+    padding-top: 5px;
+} */

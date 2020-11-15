@@ -1,0 +1,20 @@
+.reChartContainer {
+    height: 100%;
+    width: 100%;
+    /* border: 1px solid blue; */
+}
+
+/* To make the pie chart shrink / expand based on neighbour controls' sizes */
+.recharts-responsive-container {
+    position: absolute;
+}
+
+.recharts-legend-wrapper {
+    padding-top: 10px;
+    width: 100%;
+    left: 0px;
+}
+
+.recharts-wrapper {
+    /* border: 1px solid red; */
+}

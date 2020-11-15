@@ -1,0 +1,22 @@
+.designerContainer {
+    /* border: 2px solid blue; */
+    height: 100%;
+    width: 100%;
+}
+
+.layoutEditorContainer {
+    height: calc(100% - 25px);
+    width: auto;
+    /* height: 500px; */
+    overflow: auto; 
+    /* border: 10px solid green; */
+}
+
+/* Manually set the height...seems like a bug in the Semantic CSS */
+.saveAsModal {
+    height: 210px;
+}
+
+.openModal {
+    height: 210px;
+}

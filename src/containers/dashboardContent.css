@@ -1,0 +1,29 @@
+#dashboardFiltersTable td{
+    border: 1px solid gray;
+    padding-right: 10px;
+}
+
+#dashboardFiltersTable thead td{
+    background-color: lightgray;
+}
+
+.pageToolbar {
+    background-color: lightgray;
+    display: grid;
+    grid-template-columns: 1fr 130px;
+    width: 100%;
+    height: 100%;
+    padding: 5px;
+}
+
+.toolbarButtonContainer {
+    text-align: end;
+}
+
+.pageToolbarFieldContainer {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: max-content 1fr max-content 1fr max-content 1fr;
+    gap: 10px;
+}

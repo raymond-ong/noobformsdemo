@@ -1,0 +1,13 @@
+.richTextMainContainer {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-flow: column;
+    /* position: absolute; to take up 100% height and width */
+}
+
+.designerRichTextEditor {
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+}
