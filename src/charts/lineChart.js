@@ -141,7 +141,6 @@ useEffect(() => {
     dataToUse = sampleData;
   }
   else if (!!props.apiData) {
-    debugger
     dataToUse = reformatLineChartData(props.apiData.data)
     let allUniqeSeriesVals = getUniqueValues(props.apiData.data, props.data.dataProps.seriesName);
     if (Array.isArray(allUniqeSeriesVals) && allUniqeSeriesVals.length>0) {
@@ -149,7 +148,6 @@ useEffect(() => {
     }
   }
 
-  debugger
   console.log('linechart render', dataToUse);
 
   let classNames = 'reChartContainer '; 

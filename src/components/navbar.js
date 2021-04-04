@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Responsive, Sidebar, Menu} from 'semantic-ui-react';
+import {Responsive, Sidebar, Menu, Dropdown} from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from "redux";
 import { menuClicked } from '../actions/index';
@@ -74,9 +74,9 @@ class NavBarMobile extends Component {
 const NavBarDesktop = (props) => {
     // Note: putting fixed makes the menu position to be absolute. therefore child elemnets need to adjust manually
     return <div className="ui menu inverted fixed top" style={{'backgroundImage': 'linear-gradient(#454545, black)'}}>
-        <div className="header item">
-            {/* My Dashboard */}
-        </div>
+        {/* <div className="header item">
+            My Dashboard
+        </div> */}
         {getNavBarMenuItemElements(props.menuClickDispatcher, props.activeItem, true)}
     </div>;
 }
@@ -87,20 +87,68 @@ const onMenuClicked = (menuName, menuClickDispatcher) => {
     // Set the active item
 }
 
-const getNavBarMenuItemElements = (menuClickDispatcher, activeItem, withAlignment) => {
-    return navBarMenuItems.map(child => {
-        let itemClass = `item`;
-        if (withAlignment && child.alignment === 'right') {
-            itemClass += ' right';
-        }
-        if (activeItem == child.name) {
-            itemClass += ' active';
-        }
+const createMenuItem = (child, isActive, isRight, menuClickDispatcher) => {
+    let itemClass = `item`;
+    if (isActive) {
+        itemClass += ' active';
+    }
+    if (isRight) {
+        itemClass += ' right';
+    }
+    return (<a key={`${child.name}`} className={itemClass} onClick={(evt) => onMenuClicked(child.name, menuClickDispatcher)}>
+    <i className={`icon ${child.icon}`}/>
+    {child.title}
+    </a>);
+}
 
-        return <a key={`${child.name}`} className={itemClass} onClick={(evt) => onMenuClicked(child.name, menuClickDispatcher)}>
-            <i className={`icon ${child.icon}`}/>
-            {child.title}
-        </a>});
+const themeOptions = [
+    { key: 'dark', icon: 'circle', text: 'Dark', value: 'dark', color: 'red' },
+    { key: 'light', icon: 'circle', text: 'Light', value: 'light', color: 'red' },
+    { key: 'color', icon: 'circle', text: 'Color 1', value: 'color', color: 'red' },
+];
+
+const createThemeOption = () => {
+    return themeOptions.map(opt => <option value={opt.value} className="theme-dropdown-dark">{opt.text}</option>);
+}
+
+const createThemeMenuItem = () => {
+    // Use HTML select instead of Semantic Dropdown because it has a really big padding
+
+    return (<div key="themeKey" className="item themeItem">
+    <i className={`icon pencil`}/>
+    Theme: &nbsp;&nbsp;
+    <select name="cars" id="cars" className="theme-dropdown-dark">
+        {/* <option className="theme-dropdown" value="volvo">Volvo</option>
+        <option value="saab">Saab</option>
+        <option value="mercedes">Mercedes</option>
+        <option value="audi">Audi</option> */}
+        {createThemeOption()}
+        </select>
+    </div>);
+}
+
+const getNavBarMenuItemElements = (menuClickDispatcher, activeItem, withAlignment) => {
+    // Semantic UI only supports 1 right side element
+    let rightSubItems = navBarMenuItems
+    .filter(child => child.alignment === 'right' && child.clickable !== false)
+    .map(child => createMenuItem(child, activeItem == child.name, true, menuClickDispatcher));
+    let rightMenuGroup = <div className='right menu'>{[createThemeMenuItem(), ...rightSubItems]}</div>;
+    // let rightMenuGroup = (<div class="right menu">
+    // <div class="ui dropdown item">
+    //   Language <i class="dropdown icon"></i>
+    //   <div class="menu">
+    //     <a class="item">English</a>
+    //     <a class="item">Russian</a>
+    //     <a class="item">Spanish</a>
+    //   </div>
+    // </div>
+    // </div>);
+    
+    let leftSideMenu = navBarMenuItems
+        .filter(child => child.alignment !== 'right')
+        .map(child => createMenuItem(child, activeItem == child.name, false, menuClickDispatcher));    
+    
+    return [...leftSideMenu, rightMenuGroup];
 }
 // END: Desktop View
 
@@ -124,6 +172,10 @@ const navBarMenuItems = [
     // { name: 'dashboardDesigner', title: '(delete)',  icon: 'chart area',   alignment: '' },    
     // { name: 'dataDesigner', title: '(delete)',  icon: 'cube',   alignment: '' },
     // { name: 'trialPage', title: '(trial)',  icon: 'gavel',    alignment: '' },
+
+    // For the Right Side Items, semantic only supports 1 item
+    // Basically all items in the right must be grouped together as one element
+    { name: 'theme', title: 'Theme',  icon: 'pencil',    alignment: 'right', clickable: false },
     { name: 'settings', title: 'Settings',  icon: 'cog',    alignment: 'right' },
 ]
 

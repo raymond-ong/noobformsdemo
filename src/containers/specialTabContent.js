@@ -38,9 +38,14 @@ const SpecialTabContent = ({hierarchyPropName}) => {
     let defaultView = masterHierarchyViews && masterHierarchyViews[0];
     let userSettings = defaultView && JSON.parse(defaultView.nodeSettingsJson);
 
+    if (!masterHierarchyViews || !masterLayouts) {
+        return <div>Loading...</div>;
+    }
+
+
     let findSettingNode = findFirstNode(userSettings);
     if (!findSettingNode) {
-        return <div>Loading...</div>;
+        return <div className="ui message red">Page is not configured. Go to Hierarchy Designer to configure the Page.</div>
     }
 
     let layoutName = findSettingNode.pageAssoc;

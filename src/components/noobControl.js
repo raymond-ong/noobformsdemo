@@ -125,7 +125,7 @@ const NoobControl = ({controlData, resizerMouseDown, resizingControlId,
     }
     let domCtrlId = "ctrl"+controlData.i;
 
-    console.log('render NoobControl', controlData.i, ctrlStyle.maxWidth, "containerWidth", containerWidth);
+    //console.log('render NoobControl', controlData.i, ctrlStyle.maxWidth, "containerWidth", containerWidth);
     
     // [c] Render:
     // [c.1] return the landing pad first, which is only shown when the control is being resized

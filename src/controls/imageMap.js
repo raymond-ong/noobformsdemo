@@ -137,7 +137,6 @@ class ImageMap extends React.Component {
     }
 
     getTooltip(areaName) {
-         debugger
         let lowestProp = this.getLastGroupingItem();
         if (!this.props.apiData || !this.props.apiData.data || !lowestProp) {
             return areaName;

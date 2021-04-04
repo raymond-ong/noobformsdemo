@@ -49,8 +49,6 @@ const formatJsonObjAsHtml = (jsonObj) => {
 const RichText = (props) => {
     let initialState;
 
-    debugger
-    
     let apiDataAvailable = props.apiData && props.apiData.data && Array.isArray(props.apiData.data) && props.apiData.data.length > 0;
     if (props.pageApiData && props.data.apiFieldName) {
       // parse the pageApiData for apiFieldName

@@ -111,6 +111,10 @@ const panes = [
       //   ),
       // },               
       {
+        menuItem: 'Theme',
+        pane: null,
+      },
+      {
         menuItem: 'Settings',
         pane: (
           <Tab.Pane key='settings' style={{height: '100%', width: '100%', padding: '0px'}}>

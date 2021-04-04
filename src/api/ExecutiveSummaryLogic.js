@@ -37,7 +37,6 @@ export const findExecSummaryRecords = (apiData, downloadParams) => {
         return dateA > dateB;
     })
 
-    debugger
     let retList = [];
     let currAnalysisDate = createMonthDate(analysisPeriodFilter.start);
     let analysisEndDate = createMonthDate(analysisPeriodFilter.end);
@@ -46,7 +45,6 @@ export const findExecSummaryRecords = (apiData, downloadParams) => {
     }
 
     while(true) {
-        debugger
         // Find the closest start date from API 
         // If cannot find, end this loop
         let closestApiDataStart = findClosestStartDate(currAnalysisDate, cleanApiDataList);

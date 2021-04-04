@@ -4,7 +4,8 @@ export const DUMMY_APR_METADATA = {
   //server: "http://10.48.100.175:5000/device",
   //server: "http://localhost:7000/api/device",
   //server: "http://10.48.100.175:5000/api/isae/device",
-  server: "http://10.48.100.175:5001/api/isae/device",
+  //server: "http://10.48.100.175:5001/api/isae/device",
+  server: "http://localhost:60000/api/data",
 	// Will help the server 
 	requestTypes: [
 		{

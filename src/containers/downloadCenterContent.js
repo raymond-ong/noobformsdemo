@@ -138,8 +138,10 @@ const DownloadCenterContent = () => {
                 <Label tag size="large" color="brown">Step 3:&nbsp;&nbsp;&nbsp;Download Report</Label>
                 <div className="downloadCenterFieldContainer">                    
                     <div></div>
-                    <Button primary disabled={downloading}>{downloadProgress}</Button>
+                    {/* <Button primary disabled={downloading}>{downloadProgress}</Button> */}
+                    <Button primary disabled={true}>{downloadProgress}</Button>                    
                 </div>
+                <div className="ui message red">Download Report is not available in Demo Mode</div>
 
             </Form>
         </Segment>

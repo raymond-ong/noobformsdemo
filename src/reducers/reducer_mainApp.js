@@ -39,7 +39,8 @@ const tabIndexMapping = {
   // dashboardDesigner: 7,
   // dataDesigner: 8,
   // trialPage: 9,
-  settings: 6
+  theme: 6,
+  settings: 7
 }
 
 const addOrUpdateLayout = (stateLayouts, newLayout) => {
